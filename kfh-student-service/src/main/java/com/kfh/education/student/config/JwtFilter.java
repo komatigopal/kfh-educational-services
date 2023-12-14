@@ -1,6 +1,7 @@
 package com.kfh.education.student.config;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -24,6 +25,11 @@ public class JwtFilter extends OncePerRequestFilter {
 			throws IOException, ServletException {
 		final String authHeader = request.getHeader("Authorization");
 		log.info("authHeader - {}", authHeader);
+		if (!Objects.nonNull(authHeader) || authHeader.trim().equals("") || authHeader.length() < 7
+				|| authHeader.contains("Bearer ")) {
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+			return;
+		}
 		final String token = authHeader.substring(7);
 		String userName = Jwts.parser().setSigningKey("secret").parseClaimsJws(token).getBody().getSubject();
 		log.info("userName - {}", userName);
