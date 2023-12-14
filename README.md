@@ -9,9 +9,9 @@ Swagger urls for Both modules:
 
 
 Credentials of admin for both applications:
-username = admin
+username = admin &
 password = admin
 
 
 
-Note : While starting the applications, Need to change the DB username and password in both applications
+Note : While starting the applications, Need to change the DB username and password in both applications's application-dev.properties file
