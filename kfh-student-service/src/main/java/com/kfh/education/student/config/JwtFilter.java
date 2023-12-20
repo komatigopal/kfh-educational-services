@@ -26,7 +26,7 @@ public class JwtFilter extends OncePerRequestFilter {
 		final String authHeader = request.getHeader("Authorization");
 		log.info("authHeader - {}", authHeader);
 		if (!Objects.nonNull(authHeader) || authHeader.trim().equals("") || authHeader.length() < 7
-				|| authHeader.contains("Bearer ")) {
+				|| !authHeader.contains("Bearer ")) {
 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
 			return;
 		}
